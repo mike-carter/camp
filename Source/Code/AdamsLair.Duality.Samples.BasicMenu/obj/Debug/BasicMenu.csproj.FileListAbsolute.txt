@@ -1,0 +1,17 @@
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\bin\Debug\BasicMenu.core.dll
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\bin\Debug\BasicMenu.core.pdb
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\bin\Debug\BasicMenu.core.xml
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\bin\Debug\Duality.dll
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\bin\Debug\DualityPrimitives.dll
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\bin\Debug\NVorbis.dll
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\bin\Debug\FarseerDuality.dll
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\bin\Debug\DualityPrimitives.pdb
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\bin\Debug\DualityPrimitives.xml
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\bin\Debug\Duality.pdb
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\bin\Debug\Duality.xml
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\bin\Debug\NVorbis.xml
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\bin\Debug\FarseerDuality.pdb
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\bin\Debug\FarseerDuality.xml
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\obj\Debug\BasicMenu.csprojResolveAssemblyReference.cache
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\obj\Debug\BasicMenu.core.dll
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.BasicMenu\obj\Debug\BasicMenu.core.pdb

@@ -1,0 +1,17 @@
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\bin\Debug\CameraController.core.dll
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\bin\Debug\CameraController.core.pdb
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\bin\Debug\CameraController.core.xml
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\bin\Debug\Duality.dll
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\bin\Debug\DualityPrimitives.dll
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\bin\Debug\NVorbis.dll
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\bin\Debug\FarseerDuality.dll
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\bin\Debug\DualityPrimitives.pdb
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\bin\Debug\DualityPrimitives.xml
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\bin\Debug\Duality.pdb
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\bin\Debug\Duality.xml
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\bin\Debug\NVorbis.xml
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\bin\Debug\FarseerDuality.pdb
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\bin\Debug\FarseerDuality.xml
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\obj\Debug\CameraController.csprojResolveAssemblyReference.cache
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\obj\Debug\CameraController.core.dll
+C:\Users\m.carter\Documents\camp\CampGame\Source\Code\AdamsLair.Duality.Samples.CameraController\obj\Debug\CameraController.core.pdb
