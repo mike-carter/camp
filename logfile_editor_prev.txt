@@ -55,6 +55,7 @@
               Plugins\SceneView.editor.dll
               Plugins\Tilemaps.core.dll
               Plugins\Tilemaps.editor.dll
+              Plugins\Tilemaps.Sample.core.dll
 [Core] Msg: Scanning for core plugins...
 [Core] Msg:   Plugins\BasicMenu.core.dll...
 [Core] Msg:     Assembly loaded: BasicMenu.core 2.0.2.0
@@ -71,6 +72,8 @@
 [Core] Msg:     Assembly loaded: GamePlugin.core 1.0.0.0
 [Core] Msg:   Plugins\Tilemaps.core.dll...
 [Core] Msg:     Assembly loaded: Tilemaps.core 1.0.1.0
+[Core] Msg:   Plugins\Tilemaps.Sample.core.dll...
+[Core] Msg:     Assembly loaded: Tilemaps.Sample.core 1.0.4.0
 [Core] Msg: Loading auxiliary libraries...
 [Core] Msg: Initializing ISystemBackend...
 [Core] Msg:   .Net Framework...
@@ -107,6 +110,8 @@
 [Edit] Msg:     Analyzing Core Plugin: GamePlugin.core
 [Core] Msg:   Tilemaps.core...
 [Edit] Msg:     Analyzing Core Plugin: Tilemaps.core
+[Core] Msg:   Tilemaps.Sample.core...
+[Edit] Msg:     Analyzing Core Plugin: Tilemaps.Sample.core
 [Core] Msg: DualityApp initialized
             Debug Mode: False
             Command line arguments: null
@@ -168,10 +173,14 @@
 [Core] Msg: Assembly loaded: Accessibility 4.0.0.0
 [Core] Msg: Assembly loaded: System.Data.SqlXml 4.0.0.0
 [Core] Msg: Assembly loaded: System.Xaml 4.0.0.0
+[Core] Msg: Loading Resource 'Data\Scenes\MainScene.Scene.res'
+[Core] Msg: Loading Resource 'Data\UI\Materials\toolbar.Material.res'
+[Core] Msg:   Loading Resource 'Data\UI\Textures\toolbar.Texture.res'
+[Core] Msg:     Loading Resource 'Data\UI\Pixmaps\toolbar.Pixmap.res'
 [Core] Msg: Assembly loaded: System.Data.Services.Client 4.0.0.0
 [Core] Msg: Assembly loaded: System.Design 4.0.0.0
 [Core] Msg: Assembly loaded: Windows7.DesktopIntegration 1.0.0.0
-[Edit] Msg: Package downloaded: AdamsLair.Duality.Plugins.Tilemaps.Sample, 1.0.4
+[Edit] Msg: Package downloaded: AdamsLair.Duality.Samples.CameraController, 2.0.0
 [Edit] Msg: Saving user data...
 [Core] Msg: Shutting down GLControl (OpenTK)...
 [Core] Msg: Shutting down OpenGL 2.1 (OpenTK)...

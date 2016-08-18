@@ -14,5 +14,10 @@
             Defines a Duality core plugin.
             </summary>
         </member>
+        <member name="P:CampGame.UI.UIPanelRenderer.Pos">
+            <summary>
+            [GET] The UI panel's screen location.
+            </summary>
+        </member>
     </members>
 </doc>

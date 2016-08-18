@@ -22,5 +22,6 @@
     <Package id="AdamsLair.Duality.Plugins.Tilemaps" version="1.0.1.0" />
     <Package id="AdamsLair.Duality.Editor.Plugins.Tilemaps" version="1.0.3.0" />
     <Package id="AdamsLair.Duality.Plugins.Tilemaps.Sample" version="1.0.4.0" />
+    <Package id="AdamsLair.Duality.Samples.CameraController" version="2.0.0.0" />
   </Packages>
 </PackageConfig>
