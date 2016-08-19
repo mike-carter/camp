@@ -13,5 +13,7 @@ namespace CampGame
 	public class CampGameCorePlugin : CorePlugin
 	{
 		// Override methods here for global logic
+
+        
 	}
 }

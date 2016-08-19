@@ -1,8 +1,8 @@
-[Core] Msg: Running DualityLauncher with flags: RunFromEditor
+[Core] Msg: Running DualityLauncher with flags: Debugging
 [Core] Msg: Using 'DefaultPluginLoader' to load plugins.
 [Core] Msg: Environment Info: 
               Current Directory: C:\Users\m.carter\Documents\camp\CampGame
-              Command Line: "C:\Users\m.carter\Documents\camp\CampGame\DualityLauncher.exe" editor
+              Command Line: "C:\Users\m.carter\Documents\camp\CampGame\Source\Code\..\..\DualityLauncher.exe" 
               Operating System: Microsoft Windows NT 6.2.9200.0 (Windows 8)
               64 Bit OS: True
               64 Bit Process: True
@@ -44,7 +44,6 @@
               Plugins\SceneView.editor.dll
               Plugins\Tilemaps.core.dll
               Plugins\Tilemaps.editor.dll
-              Plugins\Tilemaps.Sample.core.dll
 [Core] Msg: Assembly loaded: System.Threading 4.0.0.0
 [Core] Msg: Scanning for core plugins...
 [Core] Msg:   Plugins\BasicMenu.core.dll...
@@ -62,8 +61,6 @@
 [Core] Msg:     Assembly loaded: GamePlugin.core 1.0.0.0
 [Core] Msg:   Plugins\Tilemaps.core.dll...
 [Core] Msg:     Assembly loaded: Tilemaps.core 1.0.1.0
-[Core] Msg:   Plugins\Tilemaps.Sample.core.dll...
-[Core] Msg:     Assembly loaded: Tilemaps.Sample.core 1.0.4.0
 [Core] Msg: Loading auxiliary libraries...
 [Core] Msg: Initializing ISystemBackend...
 [Core] Msg:   .Net Framework...
@@ -98,10 +95,9 @@
 [Core] Msg:   DotNetFrameworkBackend.core...
 [Core] Msg:   GamePlugin.core...
 [Core] Msg:   Tilemaps.core...
-[Core] Msg:   Tilemaps.Sample.core...
 [Core] Msg: DualityApp initialized
-            Debug Mode: False
-            Command line arguments: editor
+            Debug Mode: True
+            Command line arguments: 
 [Core] Msg: Opening Window...
 [Core] Msg:   Window Specification: 
                 Buffers: 2
@@ -110,8 +106,8 @@
                 AccumFormat: 64 (16161616)
                 Depth: 24
                 Stencil: 0
-                VSync: On
-                SwapInterval: 1
+                VSync: Off
+                SwapInterval: 0
 [Core] Msg:   OpenGL Version: 4.5.0 NVIDIA 368.81
               Vendor: NVIDIA Corporation
               Renderer: GeForce GTX 950/PCIe/SSE2
@@ -124,9 +120,11 @@
 [Core] Msg:   ...done!
 [Core] Msg: Assembly loaded: FarseerDuality 4.1.1.0
 [Core] Msg: Loading Resource 'Data\Scenes\MainScene.Scene.res'
-[Core] Msg: Loading Resource 'Data\UI\Materials\toolbar.Material.res'
-[Core] Msg:   Loading Resource 'Data\UI\Textures\toolbar.Texture.res'
-[Core] Msg:     Loading Resource 'Data\UI\Pixmaps\toolbar.Pixmap.res'
+[Core] Msg: Loading Resource 'Data\UI\Materials\cursor.Material.res'
+[Core] Msg:   Loading Resource 'Data\UI\Textures\cursor.Texture.res'
+[Core] Msg:     Loading Resource 'Data\UI\Pixmaps\cursor.Pixmap.res'
+[Core] Msg: Assembly loaded: Microsoft.VisualStudio.Debugger.Runtime 14.0.0.0
+[Core] Msg: Assembly loaded: System.Configuration 4.0.0.0
 [Core] Msg: Shutting down OpenGL 2.1 (OpenTK)...
 [Core] Msg: Shutting down OpenAL (OpenTK)...
 [Core] Msg: Shutting down .Net Framework...

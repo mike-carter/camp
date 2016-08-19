@@ -9,7 +9,7 @@
     <Plugin id="CamView">
       <CamView id="0">
         <Perspective>Flat</Perspective>
-        <FocusDist>500</FocusDist>
+        <FocusDist>275</FocusDist>
         <BackgroundColor>
           <R>64</R>
           <G>64</G>

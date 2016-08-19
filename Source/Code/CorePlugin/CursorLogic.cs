@@ -10,12 +10,13 @@ namespace CampGame
     [RequiredComponent(typeof(Transform))]
     public class CursorLogic : Component, ICmpUpdatable
     {
-        public Camera Camera { get; set; }
-
         void ICmpUpdatable.OnUpdate()
         {
+            Camera activeCamera = this.GameObj.ParentScene.ActiveObjects.GetComponents<Camera>().FirstOrDefault();
+
             Vector2 mousePos = DualityApp.Mouse.Pos;
-            this.GameObj.Transform.Pos = Camera.GetSpaceCoord(mousePos);
+            if (activeCamera != null)
+                this.GameObj.Transform.Pos = activeCamera.GetSpaceCoord(mousePos);
         }
     }
 }

@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorePlugin", "CorePlugin\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicMenu", "AdamsLair.Duality.Samples.BasicMenu\BasicMenu.csproj", "{D3F86677-EB30-450B-8AAC-81F0FBDC19B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraController", "AdamsLair.Duality.Samples.CameraController\CameraController.csproj", "{3FC49A5C-EDF1-4AE6-9EF6-6635296102EF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

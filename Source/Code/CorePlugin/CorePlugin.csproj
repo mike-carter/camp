@@ -64,10 +64,9 @@
     <Compile Include="CursorLogic.cs" />
     <Compile Include="CursorDebugComponent.cs" />
     <Compile Include="GameTimeComponent.cs" />
-    <Compile Include="UI\UIButtonRenderer.cs" />
-    <Compile Include="UI\UIPanelController.cs" />
-    <Compile Include="UI\UIItemController.cs" />
-    <Compile Include="UI\UIRenderer.cs" />
+    <Compile Include="UI\ToolPanelButton.cs" />
+    <Compile Include="UI\UIPanel.cs" />
+    <Compile Include="UI\UIWidget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
