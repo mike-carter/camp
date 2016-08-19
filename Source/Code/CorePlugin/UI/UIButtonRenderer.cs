@@ -38,7 +38,7 @@ namespace CampGame.UI
             }
         }
 
-        public override void OnInit(InitContext context)
+        public override void OnInit(Component.InitContext context)
         {
             panelRenderer = Panel?.GetComponent<UIRenderer>();
         }

@@ -1,78 +1,138 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Duality;
 using Duality.Input;
 
 namespace CampGame.UI
 {
-    public class UIPanelController : Component, ICmpInitializable
+    [RequiredComponent(typeof(UIRenderer))]
+    public class UIPanelController : UIItemController, ICmpInitializable
     {
         [DontSerialize]
-        private EventHandler<MouseMoveEventArgs> mouseMove;
+        private EventHandler<MouseMoveEventArgs> myMouseMove;
+        [DontSerialize]
+        private EventHandler<MouseButtonEventArgs> myMouseClick;
+        [DontSerialize]
+        private GameObject myCurrentControl;
+        [DontSerialize]
+        private List<GameObject> myPanelControls;
 
         [DontSerialize]
-        private EventHandler<MouseButtonEventArgs> mouseClick;
-
-        [DontSerialize]
-        private Vector2 mousePosition;
-
-        [DontSerialize]
-        private GameObject currentComponent;
-
-        [DontSerialize]
-        List<GameObject> panelControls;
+        protected bool MouseEntered = true;
 
         public UIPanelController()
         {
-            mouseMove = new EventHandler<MouseMoveEventArgs>(OnMouseMove);
-            mouseClick = new EventHandler<MouseButtonEventArgs>(OnMouseClick);
+            myMouseMove = new EventHandler<MouseMoveEventArgs>(OnMouseMove);
+            myMouseClick = new EventHandler<MouseButtonEventArgs>(OnMouseClick);
         }
 
-        public void OnInit(InitContext context)
+        public virtual void OnInit(InitContext context)
         {
             if (context == InitContext.Activate)
             {
-                panelControls = new List<GameObject>();
+                myPanelControls = new List<GameObject>();
 
-                foreach (GameObject obj in GameObj.ChildrenDeep.Where((g) =>
-                g.GetComponent<UIItemController>() != null &&
-                g.GetComponent<UIRenderer>() != null))
+                foreach (GameObject obj in GameObj.ChildrenDeep
+                    .Where((g) => g.GetComponents<UIItemController>().Count() > 0 && g.GetComponents<UIRenderer>().Count() > 0)
+                    .OrderByDescending((g) => g.GetComponents<UIRenderer>().First().ZOffset))
                 {
-                    panelControls.Add(obj);
+                    myPanelControls.Add(obj);
                 }
 
-                if (GameObj.GetComponent<UIItemController>() != null &&
-                    GameObj.GetComponent<UIRenderer>() != null)
-                {
-                    panelControls.Add(GameObj);
-                }
-
-                DualityApp.Mouse.Move += mouseMove;
-                DualityApp.Mouse.ButtonDown += mouseClick;
+                DualityApp.Mouse.Move += myMouseMove;
+                DualityApp.Mouse.ButtonDown += myMouseClick;
             }
         }
 
-        public void OnShutdown(ShutdownContext context)
+        public virtual void OnShutdown(ShutdownContext context)
         {
             if (context == ShutdownContext.Deactivate)
             {
-                DualityApp.Mouse.Move -= mouseMove;
-                DualityApp.Mouse.ButtonDown -= mouseClick;
+                DualityApp.Mouse.Move -= myMouseMove;
+                DualityApp.Mouse.ButtonDown -= myMouseClick;
             }
         }
 
         private void OnMouseMove(object sender, MouseMoveEventArgs e)
         {
+            UIRenderer renderer = GameObj.GetComponents<UIRenderer>().FirstOrDefault();
+            if (renderer == default(UIRenderer)) return;
 
+            Vector2 mousePosition = e.Position;
+
+            // First check the current control
+            if (myCurrentControl != null &&
+                (renderer = myCurrentControl.GetComponents<UIRenderer>().FirstOrDefault()) != default(UIRenderer))
+            {
+                if (renderer.ScreenArea.Contains(mousePosition))
+                    return;
+
+                // Otherwise, leave the control
+                foreach (UIItemController control in myCurrentControl.GetComponents<UIItemController>())
+                {
+                    control.OnMouseLeave();
+                }
+                myCurrentControl = null;
+            }
+
+            // Check to see if the mouse left the panel
+            if (renderer.ScreenArea.Contains(mousePosition))
+            {
+                if (!MouseEntered) OnMouseEnter();
+
+                foreach (GameObject obj in myPanelControls)
+                {
+                    var objRenderer = obj.GetComponents<UIRenderer>().FirstOrDefault();
+                    var objControllers = obj.GetComponents<UIItemController>();
+
+                    if (objRenderer == null || objControllers.Count() == 0)
+                    {
+                        continue;
+                    }
+
+                    if (objRenderer.ScreenArea.Contains(mousePosition))
+                    {
+                        myCurrentControl = obj;
+                        foreach (UIItemController control in objControllers)
+                        {
+                            control.OnMouseEnter();
+                        }
+                        return;
+                    }
+                }
+            }
+            else if (MouseEntered)
+            {
+                OnMouseLeave();
+            }
         }
 
         private void OnMouseClick(object sender, MouseButtonEventArgs e)
         {
+            OnClick(e);
+        }
 
+        public override void OnMouseEnter()
+        {
+            MouseEntered = true;
+        }
+
+        public override void OnMouseLeave()
+        {
+            MouseEntered = false;
+        }
+
+        public override void OnClick(MouseButtonEventArgs e)
+        {
+            if (myCurrentControl != null)
+            {
+                foreach (var controller in myCurrentControl.GetComponents<UIItemController>())
+                {
+                    controller.OnClick(e);
+                }
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ using Duality.Resources;
 
 namespace CampGame.UI
 {
-    public class UIRenderer : Renderer, ICmpInitializable
+    public class UIRenderer : Component, ICmpRenderer, ICmpInitializable
     {
         public bool Visible { get; set; } = true;
 
@@ -31,24 +31,25 @@ namespace CampGame.UI
 
         public virtual void OnInit(InitContext context)
         {
-            
+
         }
 
         public virtual void OnShutdown(ShutdownContext context)
         {
-            Material.Detach();
+            if (context == ShutdownContext.Deactivate)
+            {
+                Material.Detach();
+            }
         }
 
-        public override float BoundRadius { get { return Size.Length / 2; } }
-
-        public override bool IsVisible(IDrawDevice device)
+        public virtual bool IsVisible(IDrawDevice device)
         {
             return Visible &&
                 (device.VisibilityMask & VisibilityFlag.ScreenOverlay) != VisibilityFlag.None &&
                 (device.VisibilityMask & VisibilityFlag.AllGroups) != VisibilityFlag.None;
         }
 
-        public override void Draw(IDrawDevice device)
+        public virtual void Draw(IDrawDevice device)
         {
             Canvas canvas = new Canvas(device);
 
@@ -58,19 +59,24 @@ namespace CampGame.UI
 
             switch (Position)
             {
-                case Alignment.Top:
+                case Alignment.Center:
                     panelPos.X = (screenSize.X / 2) - (panelSize.X / 2);
+                    panelPos.Y = (screenSize.Y / 2) - (panelSize.Y / 2);
                     break;
-                case Alignment.TopRight:
-                    panelPos.X = screenSize.X - panelSize.X;
+                case Alignment.Left:
+                    panelPos.Y = (screenSize.Y / 2) - (panelSize.Y / 2);
                     break;
                 case Alignment.Right:
                     panelPos.X = screenSize.X - panelSize.X;
                     panelPos.Y = (screenSize.Y / 2) - (panelSize.Y / 2);
                     break;
-                case Alignment.BottomRight:
+                case Alignment.Top:
+                    panelPos.X = (screenSize.X / 2) - (panelSize.X / 2);
+                    break;
+                case Alignment.TopLeft:
+                    break;
+                case Alignment.TopRight:
                     panelPos.X = screenSize.X - panelSize.X;
-                    panelPos.Y = screenSize.Y - panelSize.Y;
                     break;
                 case Alignment.Bottom:
                     panelPos.X = (screenSize.X / 2) - (panelSize.X / 2);
@@ -79,9 +85,9 @@ namespace CampGame.UI
                 case Alignment.BottomLeft:
                     panelPos.Y = screenSize.Y - panelSize.Y;
                     break;
-                case Alignment.Left:
-                    panelPos.X = (screenSize.X / 2) - (panelSize.X / 2);
-                    panelPos.Y = (screenSize.Y / 2) - (panelSize.Y / 2);
+                case Alignment.BottomRight:
+                    panelPos.X = screenSize.X - panelSize.X;
+                    panelPos.Y = screenSize.Y - panelSize.Y;
                     break;
             }
 
@@ -96,6 +102,6 @@ namespace CampGame.UI
             canvas.FillRect(panelPos.X, panelPos.Y, ZOffset, Size.X, Size.Y);
         }
 
-        
+        float ICmpRenderer.BoundRadius { get { return Size.Length / 2; } }
     }
 }

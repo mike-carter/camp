@@ -1,5 +1,6 @@
 ﻿namespace CampGame.UI
 {
+    [Duality.RequiredComponent(typeof(UIRenderer))]
     public abstract class UIItemController : Duality.Component
     {
         public abstract void OnMouseEnter();

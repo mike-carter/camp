@@ -122,47 +122,45 @@
             <children />
             <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="402663701">
               <_items dataType="Array" type="Duality.Component[]" id="2263689334" length="4">
-                <item dataType="Struct" type="Duality.Components.Transform" id="1158076105">
+                <item dataType="Struct" type="CampGame.UI.UIRenderer" id="1179827591">
+                  <_x003C_Material_x003E_k__BackingField dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Material]]" />
+                  <_x003C_Offset_x003E_k__BackingField dataType="Struct" type="Duality.Vector2" />
+                  <_x003C_Pos_x003E_k__BackingField dataType="Struct" type="Duality.Vector2">
+                    <X dataType="Float">486</X>
+                    <Y dataType="Float">794</Y>
+                  </_x003C_Pos_x003E_k__BackingField>
+                  <_x003C_Position_x003E_k__BackingField dataType="Enum" type="Duality.Alignment" name="Bottom" value="8" />
+                  <_x003C_Size_x003E_k__BackingField dataType="Struct" type="Duality.Vector2">
+                    <X dataType="Float">100</X>
+                    <Y dataType="Float">100</Y>
+                  </_x003C_Size_x003E_k__BackingField>
+                  <_x003C_Visible_x003E_k__BackingField dataType="Bool">true</_x003C_Visible_x003E_k__BackingField>
+                  <_x003C_ZOffset_x003E_k__BackingField dataType="Float">0</_x003C_ZOffset_x003E_k__BackingField>
                   <active dataType="Bool">true</active>
-                  <angle dataType="Float">0</angle>
-                  <angleAbs dataType="Float">0</angleAbs>
-                  <angleVel dataType="Float">0</angleVel>
-                  <angleVelAbs dataType="Float">0</angleVelAbs>
-                  <deriveAngle dataType="Bool">true</deriveAngle>
                   <gameobj dataType="ObjectRef">3092728469</gameobj>
-                  <ignoreParent dataType="Bool">false</ignoreParent>
-                  <parentTransform dataType="ObjectRef">3764910169</parentTransform>
-                  <pos dataType="Struct" type="Duality.Vector3">
-                    <X dataType="Float">-13.9574432</X>
-                    <Y dataType="Float">250</Y>
-                    <Z dataType="Float">0</Z>
-                  </pos>
-                  <posAbs dataType="Struct" type="Duality.Vector3">
-                    <X dataType="Float">-13.9574432</X>
-                    <Y dataType="Float">250</Y>
-                    <Z dataType="Float">0</Z>
-                  </posAbs>
-                  <scale dataType="Float">1</scale>
-                  <scaleAbs dataType="Float">1</scaleAbs>
-                  <vel dataType="Struct" type="Duality.Vector3" />
-                  <velAbs dataType="Struct" type="Duality.Vector3" />
+                </item>
+                <item dataType="Struct" type="CampGame.UI.UIPanelController" id="2753725314">
+                  <active dataType="Bool">true</active>
+                  <gameobj dataType="ObjectRef">3092728469</gameobj>
                 </item>
               </_items>
-              <_size dataType="Int">1</_size>
-              <_version dataType="Int">5</_version>
+              <_size dataType="Int">2</_size>
+              <_version dataType="Int">8</_version>
             </compList>
             <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="3246766792" surrogate="true">
               <header />
               <body>
                 <keys dataType="Array" type="System.Object[]" id="1053860031">
-                  <item dataType="ObjectRef">223898436</item>
+                  <item dataType="Type" id="4211306926" value="CampGame.UI.UIRenderer" />
+                  <item dataType="Type" id="1917954762" value="CampGame.UI.UIPanelController" />
                 </keys>
                 <values dataType="Array" type="System.Object[]" id="921395680">
-                  <item dataType="ObjectRef">1158076105</item>
+                  <item dataType="ObjectRef">1179827591</item>
+                  <item dataType="ObjectRef">2753725314</item>
                 </values>
               </body>
             </compMap>
-            <compTransform dataType="ObjectRef">1158076105</compTransform>
+            <compTransform />
             <identifier dataType="Struct" type="System.Guid" surrogate="true">
               <header>
                 <data dataType="Array" type="System.Byte[]" id="1345210989">WAm13+ISAUOEnHUz+044zA==</data>
@@ -208,8 +206,8 @@
       <parent />
       <prefabLink />
     </item>
-    <item dataType="ObjectRef">3092728469</item>
     <item dataType="ObjectRef">1884001978</item>
+    <item dataType="ObjectRef">3092728469</item>
   </serializeObj>
   <visibilityStrategy dataType="Struct" type="Duality.Components.DefaultRendererVisibilityStrategy" id="2035693768" />
 </root>
