@@ -61,10 +61,13 @@
     <Compile Include="CameraControl\MouseControlComponent.cs" />
     <Compile Include="CameraControl\RigidCameraController.cs" />
     <Compile Include="CorePlugin.cs" />
-    <Compile Include="CursorLogic.cs" />
+    <Compile Include="UI\UIButton.cs" />
+    <Compile Include="UI\UICursor.cs" />
     <Compile Include="CursorDebugComponent.cs" />
     <Compile Include="GameTimeComponent.cs" />
     <Compile Include="UI\ToolPanelButton.cs" />
+    <Compile Include="UI\UIRenderer.cs" />
+    <Compile Include="UI\UIInputManager.cs" />
     <Compile Include="UI\UIPanel.cs" />
     <Compile Include="UI\UIWidget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

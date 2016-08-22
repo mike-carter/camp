@@ -1,58 +1,101 @@
-﻿using System;
-using Duality;
+﻿using Duality;
 using Duality.Components;
-using Duality.Components.Renderers;
+using Duality.Drawing;
+using Duality.Input;
+using Duality.Resources;
 
 namespace CampGame.UI
 {
-    [RequiredComponent(typeof(SpriteRenderer))]
     [RequiredComponent(typeof(Transform))]
-    public abstract class UIWidget : Component, ICmpInitializable
+    public class UIWidget : Component, ICmpInitializable
     {
+        protected Rect widgetArea = Rect.Empty;
+
         [DontSerialize]
-        protected SpriteRenderer sprite = null;
+        protected Rect screenArea = Rect.Empty;
+
+        public float BoundRadius { get { return Rect.Size.Length; } }
+
+        public Rect Rect
+        {
+            get { return widgetArea; }
+            set { widgetArea = value; }
+        }
+
+        /// <summary>
+        /// [GET] The area that this widget covers on the screen
+        /// </summary>
+        public Rect ScreenArea { get { return screenArea; } }
+
+        public ContentRef<Material> BaseMaterial { get; set; } = Material.Checkerboard;
+
+        public float ZOffset { get; set; } = 0f;
         
-        public abstract void OnMouseEnter();
-
-        public abstract void OnMouseLeave();
-
-        public abstract void OnClick(Duality.Input.MouseButtonEventArgs e);
-
         public virtual void OnInit(InitContext context)
         {
-            if (context == InitContext.Activate || context == InitContext.AddToGameObject)
+            if (context == InitContext.Activate)
             {
-                SpriteRenderer renderer = GameObj.GetComponent<SpriteRenderer>();
-                if (renderer != null)
+                //if (BaseMaterial != null)
+                //{
+                //    widgetArea.Size = BaseMaterial.Res.MainTexture.Res.Size;
+                //}
+
+                UIInputManager inputManager = GameObj.ParentScene.FindComponent<UIInputManager>();
+                if (inputManager != null)
                 {
-                    renderer.VisibilityGroup = Duality.Drawing.VisibilityFlag.AllFlags | Duality.Drawing.VisibilityFlag.ScreenOverlay;
-                    renderer.Rect = new Rect(0f, 0f, renderer.Rect.W, renderer.Rect.H);
+                    inputManager.AddWidget(this);
                 }
+
+                foreach (UIRenderer renderer in GameObj.ParentScene.FindComponents<UIRenderer>())
+                {
+                    if (GameObj.IsChildOf(renderer.GameObj))
+                    {
+                        renderer.AddWidget(this);
+                    }
+                }
+
             }
         }
         
         public virtual void OnShutdown(ShutdownContext context)
         {
+            if (context == ShutdownContext.Deactivate)
+            {
+                if (BaseMaterial != null)
+                    BaseMaterial.Detach();
+            }
         }
 
-        public Rect GetAreaOnScreen()
+        public virtual void Draw(IDrawDevice device)
         {
-            if (sprite == null) sprite = GameObj.GetComponent<SpriteRenderer>();
+            if (GameObj.Transform == null)
+                return;
 
-            Camera activeCamera = GameObj.ParentScene.FindComponent<Camera>();
+            Canvas canvas = new Canvas(device);
 
-            if (activeCamera != null)
-            {
-                Rect area = new Rect(sprite.Rect.Size);
-                area.Pos = activeCamera.GetScreenCoord(GameObj.Transform.Pos).Xy;
-                return area;
-            }
-            else
-            {
-                return new Rect();
-            }
+            if (BaseMaterial == null)
+                BaseMaterial = Material.Checkerboard;
+
+            screenArea.Pos = device.GetScreenCoord(GameObj.Transform.Pos).Xy;
+            screenArea.Size = Rect.Size * device.GetScaleAtZ(GameObj.Transform.Pos.Z);
+
+            canvas.State.SetMaterial(BaseMaterial);
+
+            canvas.FillRect(screenArea.X, screenArea.Y, screenArea.W, screenArea.H);
         }
 
-        
+        // Events
+
+        public virtual void OnKeyPress(KeyboardKeyEventArgs e) { }
+
+        public virtual void OnMouseEnter() { }
+
+        public virtual void OnMouseLeave() { }
+
+        public virtual void OnClick(MouseButtonEventArgs e) { }
+
+        public virtual void OnRelease(MouseButtonEventArgs e) { }
+
+        public virtual void OnMouseWheelMove(MouseWheelEventArgs e) { }
     }
 }

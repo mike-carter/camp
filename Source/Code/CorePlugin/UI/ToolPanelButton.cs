@@ -12,6 +12,8 @@ namespace CampGame.UI
 {
     public class ToolPanelButton : UIWidget
     {
+        ContentRef<Material> temp;
+
         public enum Button
         {
             None,
@@ -22,21 +24,24 @@ namespace CampGame.UI
 
         public override void OnMouseEnter()
         {
-            
+            //temp = BaseMaterial;
+            //BaseMaterial = Material.DualityIcon;
         }
 
         public override void OnMouseLeave()
         {
-            
+
         }
 
         public override void OnClick(MouseButtonEventArgs e)
         {
-            switch (this.ButtonID)
+            if (BaseMaterial == Material.DualityIcon)
+                BaseMaterial = temp;
+            else
             {
-                
+                temp = BaseMaterial;
+                BaseMaterial = Material.DualityIcon;
             }
-
         }
     }
 }

@@ -14,5 +14,10 @@
             Defines a Duality core plugin.
             </summary>
         </member>
+        <member name="P:CampGame.UI.UIWidget.ScreenArea">
+            <summary>
+            [GET] The area that this widget covers on the screen
+            </summary>
+        </member>
     </members>
 </doc>

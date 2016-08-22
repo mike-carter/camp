@@ -9,7 +9,7 @@
     <Plugin id="CamView">
       <CamView id="0">
         <Perspective>Flat</Perspective>
-        <FocusDist>275</FocusDist>
+        <FocusDist>450</FocusDist>
         <BackgroundColor>
           <R>64</R>
           <G>64</G>
@@ -164,7 +164,7 @@
         <Content ID="0" RefID="0" />
       </Contents>
     </Pane>
-    <Pane ID="7" DockState="Document" ActiveContent="0">
+    <Pane ID="7" DockState="Document" ActiveContent="6">
       <Contents Count="2">
         <Content ID="0" RefID="0" />
         <Content ID="1" RefID="6" />

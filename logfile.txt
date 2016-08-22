@@ -1,8 +1,8 @@
-[Core] Msg: Running DualityLauncher with flags: Debugging
+[Core] Msg: Running DualityLauncher with flags: 
 [Core] Msg: Using 'DefaultPluginLoader' to load plugins.
 [Core] Msg: Environment Info: 
               Current Directory: C:\Users\m.carter\Documents\camp\CampGame
-              Command Line: "C:\Users\m.carter\Documents\camp\CampGame\Source\Code\..\..\DualityLauncher.exe" 
+              Command Line: "C:\Users\m.carter\Documents\camp\CampGame\DualityLauncher.exe" 
               Operating System: Microsoft Windows NT 6.2.9200.0 (Windows 8)
               64 Bit OS: True
               64 Bit Process: True
@@ -96,7 +96,7 @@
 [Core] Msg:   GamePlugin.core...
 [Core] Msg:   Tilemaps.core...
 [Core] Msg: DualityApp initialized
-            Debug Mode: True
+            Debug Mode: False
             Command line arguments: 
 [Core] Msg: Opening Window...
 [Core] Msg:   Window Specification: 
@@ -106,8 +106,8 @@
                 AccumFormat: 64 (16161616)
                 Depth: 24
                 Stencil: 0
-                VSync: Off
-                SwapInterval: 0
+                VSync: On
+                SwapInterval: 1
 [Core] Msg:   OpenGL Version: 4.5.0 NVIDIA 368.81
               Vendor: NVIDIA Corporation
               Renderer: GeForce GTX 950/PCIe/SSE2
@@ -120,11 +120,15 @@
 [Core] Msg:   ...done!
 [Core] Msg: Assembly loaded: FarseerDuality 4.1.1.0
 [Core] Msg: Loading Resource 'Data\Scenes\MainScene.Scene.res'
+[Core] Msg: Loading Resource 'Data\UI\Materials\toolbar.Material.res'
+[Core] Msg:   Loading Resource 'Data\UI\Textures\toolbar.Texture.res'
+[Core] Msg:     Loading Resource 'Data\UI\Pixmaps\toolbar.Pixmap.res'
+[Core] Msg: Loading Resource 'Data\UI\ButtonIcons\buildIcon.Material.res'
+[Core] Msg:   Loading Resource 'Data\UI\ButtonIcons\buildIcon.Texture.res'
+[Core] Msg:     Loading Resource 'Data\UI\ButtonIcons\buildIcon.Pixmap.res'
 [Core] Msg: Loading Resource 'Data\UI\Materials\cursor.Material.res'
 [Core] Msg:   Loading Resource 'Data\UI\Textures\cursor.Texture.res'
 [Core] Msg:     Loading Resource 'Data\UI\Pixmaps\cursor.Pixmap.res'
-[Core] Msg: Assembly loaded: Microsoft.VisualStudio.Debugger.Runtime 14.0.0.0
-[Core] Msg: Assembly loaded: System.Configuration 4.0.0.0
 [Core] Msg: Shutting down OpenGL 2.1 (OpenTK)...
 [Core] Msg: Shutting down OpenAL (OpenTK)...
 [Core] Msg: Shutting down .Net Framework...
