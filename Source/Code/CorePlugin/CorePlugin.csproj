@@ -55,16 +55,26 @@
     <Reference Include="DualityPrimitives">
       <HintPath>..\..\..\DualityPrimitives.dll</HintPath>
     </Reference>
+    <Reference Include="Tilemaps.core">
+      <HintPath>..\..\..\Plugins\Tilemaps.core.dll</HintPath>
+    </Reference>
+    <Reference Include="Tilemaps.editor">
+      <HintPath>..\..\..\Plugins\Tilemaps.editor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActorRenderer.cs" />
     <Compile Include="CameraControl\KeyboardPositionComponent.cs" />
     <Compile Include="CameraControl\MouseControlComponent.cs" />
     <Compile Include="CameraControl\RigidCameraController.cs" />
     <Compile Include="CorePlugin.cs" />
+    <Compile Include="Resources\Blueprint.cs" />
+    <Compile Include="Resources\UIBorderMaterial.cs" />
+    <Compile Include="Resources\UISkin.cs" />
+    <Compile Include="StructureObject.cs" />
+    <Compile Include="UI\ScrollPanel.cs" />
     <Compile Include="UI\UIButton.cs" />
     <Compile Include="UI\UICursor.cs" />
-    <Compile Include="CursorDebugComponent.cs" />
-    <Compile Include="GameTimeComponent.cs" />
     <Compile Include="UI\ToolPanelButton.cs" />
     <Compile Include="UI\UIRenderer.cs" />
     <Compile Include="UI\UIInputManager.cs" />

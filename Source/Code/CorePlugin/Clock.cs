@@ -8,7 +8,7 @@ using Duality;
 
 namespace CampGame
 {
-    public class GameTimeComponent : Component, ICmpInitializable, ICmpUpdatable
+    public class Clock : Component, ICmpInitializable, ICmpUpdatable
     {
         public static readonly DateTime NewGameStartTime = new DateTime(2016, 6, 19, 6, 0, 0);
 

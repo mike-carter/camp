@@ -1,87 +1,159 @@
-﻿using Duality;
+﻿using System;
+
+using Duality;
+using Duality.Editor;
+using Duality.Properties;
 using Duality.Components;
 using Duality.Drawing;
 using Duality.Input;
 using Duality.Resources;
 
+using CampGame.Resources;
+
 namespace CampGame.UI
 {
+    [EditorHintImage(CoreResNames.ImageSpriteRenderer)]
     [RequiredComponent(typeof(Transform))]
     public class UIWidget : Component, ICmpInitializable
     {
-        protected Rect widgetArea = Rect.Empty;
-
-        [DontSerialize]
-        protected Rect screenArea = Rect.Empty;
-
-        public float BoundRadius { get { return Rect.Size.Length; } }
-
-        public Rect Rect
+        [Flags]
+        public enum DirtyFlags
         {
-            get { return widgetArea; }
-            set { widgetArea = value; }
+            None = 0,
+            Background = 1,
+            Border = 2,
+            Text = 4,
+            All = 0x07
         }
 
-        /// <summary>
-        /// [GET] The area that this widget covers on the screen
-        /// </summary>
+        protected Vector2 size = new Vector2(100, 100);
+
+        protected ContentRef<UISkin> skin = UISkin.Default;
+
+        protected ColorRgba bgTint = ColorRgba.White;
+
+        protected ColorRgba borderTint = ColorRgba.White;
+
+        [DontSerialize] protected Rect screenArea;
+
+        [DontSerialize] protected VertexC1P3T2[] bgVertices;
+
+        [DontSerialize] protected VertexC1P3T2[] borderVertices;
+
+        [DontSerialize] protected DirtyFlags dirtyFlags;
+
+        public Vector2 Size
+        {
+            get { return size; }
+            set
+            {
+                size = value;
+                dirtyFlags |= DirtyFlags.All;
+            }
+        }
+
+        public ContentRef<UISkin> Skin
+        {
+            get { return skin; }
+            set
+            {
+                skin = value;
+                dirtyFlags |= DirtyFlags.All;
+            }
+        }
+
+        public ColorRgba BackgroundTint
+        {
+            get { return bgTint; }
+            set
+            {
+                bgTint = value;
+                dirtyFlags |= DirtyFlags.Background;
+            }
+        }
+
+        public ColorRgba BorderTint
+        {
+            get { return borderTint; }
+            set
+            {
+                borderTint = value;
+                dirtyFlags |= DirtyFlags.Border;
+            }
+        }
+
+        [EditorHintFlags(MemberFlags.Invisible)]
         public Rect ScreenArea { get { return screenArea; } }
-
-        public ContentRef<Material> BaseMaterial { get; set; } = Material.Checkerboard;
-
-        public float ZOffset { get; set; } = 0f;
         
+
         public virtual void OnInit(InitContext context)
         {
-            if (context == InitContext.Activate)
-            {
-                //if (BaseMaterial != null)
-                //{
-                //    widgetArea.Size = BaseMaterial.Res.MainTexture.Res.Size;
-                //}
-
-                UIInputManager inputManager = GameObj.ParentScene.FindComponent<UIInputManager>();
-                if (inputManager != null)
-                {
-                    inputManager.AddWidget(this);
-                }
-
-                foreach (UIRenderer renderer in GameObj.ParentScene.FindComponents<UIRenderer>())
-                {
-                    if (GameObj.IsChildOf(renderer.GameObj))
-                    {
-                        renderer.AddWidget(this);
-                    }
-                }
-
-            }
         }
         
         public virtual void OnShutdown(ShutdownContext context)
         {
-            if (context == ShutdownContext.Deactivate)
-            {
-                if (BaseMaterial != null)
-                    BaseMaterial.Detach();
-            }
         }
 
         public virtual void Draw(IDrawDevice device)
         {
-            if (GameObj.Transform == null)
-                return;
+            UISkin skinRes = (skin == null) ? null : skin.Res;
+            if (skinRes == null) return;
 
-            Canvas canvas = new Canvas(device);
-
-            if (BaseMaterial == null)
-                BaseMaterial = Material.Checkerboard;
+            Rect oldScreenArea = screenArea;
 
             screenArea.Pos = device.GetScreenCoord(GameObj.Transform.Pos).Xy;
-            screenArea.Size = Rect.Size * device.GetScaleAtZ(GameObj.Transform.Pos.Z);
+            screenArea.Size = size * GameObj.Transform.Scale;
 
-            canvas.State.SetMaterial(BaseMaterial);
+            if (screenArea != oldScreenArea)
+                dirtyFlags |= DirtyFlags.All;
+            
+            Texture baseTexture = skinRes.BackgroundMaterial;
 
-            canvas.FillRect(screenArea.X, screenArea.Y, screenArea.W, screenArea.H);
+            if (skinRes == null || skinRes.BackgroundMaterial) return;
+
+            if (vertices == null || vertices.Length != 36)
+                vertices = new VertexC1P3T2[36];
+
+            ColorRgba 
+            
+            /*****************************
+			 *  0     3| 4     7| 8    11
+			 *
+			 *  1     2| 5     6| 9    10
+			 * --    --+--    --+--    --
+			 * 12    15|16    19|20    23
+			 *
+			 * 13    14|17    18|21    22
+			 * --    --+--    --+--    --
+			 * 24    27|28    31|32    35
+			 *
+			 * 25    26|29    30|33    34
+			 *****************************/
+        }
+
+        protected virtual void PrepareBGVertices(IDrawDevice device, ColorRgba mainColor, Rect uvRect)
+        {
+            if (bgVertices == null || bgVertices.Length != 4) bgVertices = new VertexC1P3T2[4];
+
+            bgVertices[0].Pos.Xy = screenArea.TopLeft;
+            bgVertices[0].Pos.Z = 0f;
+            bgVertices[0].TexCoord = uvRect.TopLeft;
+            bgVertices[0].Color = mainColor;
+
+            bgVertices[1].Pos.Xy = screenArea.BottomLeft;
+            bgVertices[1].Pos.Z = 0f;
+            bgVertices[1].TexCoord = uvRect.BottomLeft;
+            bgVertices[1].Color = mainColor;
+
+            bgVertices[2].Pos.Xy = screenArea.BottomRight;
+            bgVertices[2].Pos.Z = 0f;
+            bgVertices[2].TexCoord = uvRect.BottomRight;
+            bgVertices[2].Color = mainColor;
+
+            bgVertices[3].Pos.Xy = screenArea.TopRight;
+            bgVertices[3].Pos.Z = 0f;
+            bgVertices[3].TexCoord = uvRect.TopRight;
+            bgVertices[3].Color = mainColor;
         }
 
         // Events

@@ -10,13 +10,13 @@
       <R dataType="Byte">255</R>
     </mainColor>
     <technique dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.DrawTechnique]]">
-      <contentPath dataType="String">Default:DrawTechnique:Mask</contentPath>
+      <contentPath dataType="String">Default:DrawTechnique:Alpha</contentPath>
     </technique>
     <textures dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.String],[Duality.ContentRef`1[[Duality.Resources.Texture]]]]" id="1100841590" surrogate="true">
       <header />
       <body>
         <mainTex dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Texture]]">
-          <contentPath dataType="String">Data\UI\ButtonIcons\buildIcon.Texture.res</contentPath>
+          <contentPath dataType="String">Data\TilemapsSample\Actors\Barrel.Texture.res</contentPath>
         </mainTex>
       </body>
     </textures>
