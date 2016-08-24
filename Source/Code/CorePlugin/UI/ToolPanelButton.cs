@@ -10,10 +10,8 @@ using Duality.Resources;
 
 namespace CampGame.UI
 {
-    public class ToolPanelButton : UIWidget
+    public class ToolPanelButton : UIPanel
     {
-        ContentRef<Material> temp;
-
         public enum Button
         {
             None,
@@ -35,13 +33,6 @@ namespace CampGame.UI
 
         public override void OnClick(MouseButtonEventArgs e)
         {
-            if (BaseMaterial == Material.DualityIcon)
-                BaseMaterial = temp;
-            else
-            {
-                temp = BaseMaterial;
-                BaseMaterial = Material.DualityIcon;
-            }
         }
     }
 }

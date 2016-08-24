@@ -60,8 +60,8 @@
 [Core] Msg:     Assembly loaded: DotNetFrameworkBackend.core 2.1.0.0
 [Core] Msg:   Plugins\GamePlugin.core.dll...
 [Core] Msg:     Assembly loaded: GamePlugin.core 1.0.0.0
-[Core] Msg:   Plugins\Tilemaps.core.dll...
 [Core] Msg:     Assembly loaded: Tilemaps.core 1.0.1.0
+[Core] Msg:   Plugins\Tilemaps.core.dll...
 [Core] Msg:   Plugins\Tilemaps.Sample.core.dll...
 [Core] Msg:     Assembly loaded: Tilemaps.Sample.core 1.0.4.0
 [Core] Msg: Loading auxiliary libraries...
@@ -96,8 +96,8 @@
 [Core] Msg:   DefaultOpenTKBackend.core...
 [Core] Msg:     Assembly loaded: System.Drawing 4.0.0.0
 [Core] Msg:   DotNetFrameworkBackend.core...
-[Core] Msg:   GamePlugin.core...
 [Core] Msg:   Tilemaps.core...
+[Core] Msg:   GamePlugin.core...
 [Core] Msg:   Tilemaps.Sample.core...
 [Core] Msg: DualityApp initialized
             Debug Mode: False
@@ -123,22 +123,21 @@
 [Core] Msg:   Assembly loaded: NVorbis 0.7.5.0
 [Core] Msg:   ...done!
 [Core] Msg: Assembly loaded: FarseerDuality 4.1.1.0
-[Core] Msg: Loading Resource 'Data\Scenes\MainScene.Scene.res'
+[Core] Msg: Loading Resource 'Data\MainScene.Scene.res'
 [Core] Msg:   Assembly loaded: System.IO.Compression 4.0.0.0
 [Core] Msg: Loading Resource 'Data\Map\MagicTown.Tileset.res'
 [Core] Msg:   Loading Resource 'Data\Map\MagicTown.Pixmap.res'
-[Core] Msg: Loading Resource 'Data\UI\Materials\toolbar.Material.res'
-[Core] Msg:   Loading Resource 'Data\UI\Textures\toolbar.Texture.res'
-[Core] Msg:     Loading Resource 'Data\UI\Textures\toolbar.Pixmap.res'
-[Core] Msg: Loading Resource 'Data\UI\Icons\buildIcon.Material.res'
-[Core] Msg:   Loading Resource 'Data\UI\Icons\buildIcon.Texture.res'
-[Core] Msg:     Loading Resource 'Data\UI\Icons\buildIcon.Pixmap.res'
-[Core] Msg: Loading Resource 'Data\UI\Materials\cursor.Material.res'
-[Core] Msg:   Loading Resource 'Data\UI\Textures\cursor.Texture.res'
-[Core] Msg:     Loading Resource 'Data\UI\Textures\cursor.Pixmap.res'
-[Core] Msg: Loading Resource 'Data\UI\Materials\panel-base.Material.res'
+[Core] Msg: Loading Resource 'Data\UI\panel-skin.UISkin.res'
+[Core] Msg: Loading Resource 'Data\UI\Textures\panel-base.Material.res'
 [Core] Msg:   Loading Resource 'Data\UI\Textures\panel-base.Texture.res'
 [Core] Msg:     Loading Resource 'Data\UI\Textures\panel-base.Pixmap.res'
+[Core] Msg: Loading Resource 'Data\UI\Textures\panel-border.Material.res'
+[Core] Msg:   Loading Resource 'Data\UI\Textures\panel-border.Texture.res'
+[Core] Msg:     Loading Resource 'Data\UI\Textures\panel-border.Pixmap.res'
+[Core] Msg: Loading Resource 'Data\UI\cursor-skin.UISkin.res'
+[Core] Msg: Loading Resource 'Data\UI\Textures\cursor.Material.res'
+[Core] Msg:   Loading Resource 'Data\UI\Textures\cursor.Texture.res'
+[Core] Msg:     Loading Resource 'Data\UI\Textures\cursor.Pixmap.res'
 [Core] Msg: Shutting down OpenGL 2.1 (OpenTK)...
 [Core] Msg: Shutting down OpenAL (OpenTK)...
 [Core] Msg: Shutting down .Net Framework...

@@ -16,7 +16,7 @@
       <header />
       <body>
         <mainTex dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Texture]]">
-          <contentPath dataType="String">Data\UI\Textures\toolbar.Texture.res</contentPath>
+          <contentPath dataType="String">Data\UI\Textures\cursor.Texture.res</contentPath>
         </mainTex>
       </body>
     </textures>

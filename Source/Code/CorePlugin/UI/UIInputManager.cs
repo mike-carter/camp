@@ -10,13 +10,13 @@ namespace CampGame.UI
     public class UIInputManager : Component, ICmpInitializable
     {
         [DontSerialize]
-        protected List<UIWidget> allWidgets;
+        protected List<UIPanel> allWidgets;
 
         [DontSerialize]
-        protected List<UIWidget> hoveredWidgets;
+        protected List<UIPanel> hoveredWidgets;
 
         [DontSerialize]
-        protected UIWidget focusedWidget;
+        protected UIPanel focusedWidget;
 
         [DontSerialize]
         private EventHandler<KeyboardKeyEventArgs> keyboardHandler;
@@ -33,13 +33,13 @@ namespace CampGame.UI
         [DontSerialize]
         private EventHandler<MouseWheelEventArgs> mouseWheelHandler;
         
-        public IList<UIWidget> Widgets { get { return allWidgets; } }
+        public IList<UIPanel> Widgets { get { return allWidgets; } }
 
         public UIInputManager()
         {
-            allWidgets = new List<UIWidget>();
+            allWidgets = new List<UIPanel>();
 
-            hoveredWidgets = new List<UIWidget>();
+            hoveredWidgets = new List<UIPanel>();
 
             keyboardHandler = new EventHandler<KeyboardKeyEventArgs>(KeyboardKeyPress);
             mouseMoveHandler = new EventHandler<MouseMoveEventArgs>(MouseMove);
@@ -72,7 +72,7 @@ namespace CampGame.UI
             }
         }
 
-        public void AddWidget(UIWidget widget)
+        public void AddWidget(UIPanel widget)
         {
             if (!allWidgets.Contains(widget))
             {
@@ -117,8 +117,8 @@ namespace CampGame.UI
                 }
             }
 
-            if (needsSort)
-                hoveredWidgets.Sort(new Comparison<UIWidget>((w1, w2) => w1.ZOffset.CompareTo(w2.ZOffset)));
+            //if (needsSort)
+            //    hoveredWidgets.Sort(new Comparison<UIWidget>((w1, w2) => w1.Offset.CompareTo(w2.ZOffset)));
         }
 
         private void MouseButtonDown(object sender, MouseButtonEventArgs e)

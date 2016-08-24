@@ -70,16 +70,16 @@
     <Compile Include="CorePlugin.cs" />
     <Compile Include="Resources\Blueprint.cs" />
     <Compile Include="Resources\UIBorderMaterial.cs" />
-    <Compile Include="Resources\UISkin.cs" />
+    <Compile Include="UI\UISkin.cs" />
     <Compile Include="StructureObject.cs" />
     <Compile Include="UI\ScrollPanel.cs" />
     <Compile Include="UI\UIButton.cs" />
     <Compile Include="UI\UICursor.cs" />
     <Compile Include="UI\ToolPanelButton.cs" />
-    <Compile Include="UI\UIRenderer.cs" />
+    <Compile Include="UI\UITextPanel.cs" />
     <Compile Include="UI\UIInputManager.cs" />
+    <Compile Include="UI\UIAlignedPanel.cs" />
     <Compile Include="UI\UIPanel.cs" />
-    <Compile Include="UI\UIWidget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

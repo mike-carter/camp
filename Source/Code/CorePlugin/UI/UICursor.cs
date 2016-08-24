@@ -10,27 +10,18 @@ using Duality.Input;
 namespace CampGame.UI
 {
     [RequiredComponent(typeof(Transform))]
-    public class UICursor : UIWidget
+    public class UICursor : UIPanel
     {
         public override void OnInit(InitContext context)
         {
-            base.OnInit(context);
-
-            if (context == InitContext.Activate)
-            {
-                UIInputManager inputManager = GameObj.ParentScene.FindComponent<UIInputManager>();
-                if (inputManager != null)
-                {
-                    inputManager.Widgets.Remove(this);
-                }
-            }
+            bordersVisible = false;
         }
 
         public override void Draw(IDrawDevice device)
         {
             Vector2 mousePos = DualityApp.Mouse.Pos;
             GameObj.Transform.Pos = device.GetSpaceCoord(mousePos);
-
+            
             base.Draw(device);
         }
     }
