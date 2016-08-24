@@ -73,7 +73,7 @@
     <Compile Include="UI\UISkin.cs" />
     <Compile Include="StructureObject.cs" />
     <Compile Include="UI\ScrollPanel.cs" />
-    <Compile Include="UI\UIButton.cs" />
+    <Compile Include="UI\UIIconPanel.cs" />
     <Compile Include="UI\UICursor.cs" />
     <Compile Include="UI\ToolPanelButton.cs" />
     <Compile Include="UI\UITextPanel.cs" />

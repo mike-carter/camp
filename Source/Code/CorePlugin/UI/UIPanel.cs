@@ -54,8 +54,8 @@ namespace CampGame.UI
         [DontSerialize] protected bool hasFocus;
         [DontSerialize] protected bool mouseHovering;
 
-        [DontSerialize] protected VertexC1P3T2[] bgVertices;
-        [DontSerialize] protected VertexC1P3T2[] borderVertices;
+        [DontSerialize] protected VertexC1P3T2[] bgVertices = new VertexC1P3T2[4];
+        [DontSerialize] protected VertexC1P3T2[] borderVertices = new VertexC1P3T2[32];
         
         [DontSerialize] protected DirtyFlags dirtyFlags;
 

@@ -1,13 +1,13 @@
-[Core] Msg: Running DualityLauncher with flags: RunFromEditor
+[Core] Msg: Running DualityLauncher with flags: Debugging
 [Core] Msg: Using 'DefaultPluginLoader' to load plugins.
 [Core] Msg: Environment Info: 
-              Current Directory: C:\Users\m.carter\Documents\camp\CampGame
-              Command Line: "C:\Users\m.carter\Documents\camp\CampGame\DualityLauncher.exe" editor
+              Current Directory: C:\Users\Mike\Documents\camp
+              Command Line: "C:\Users\Mike\Documents\camp\Source\Code\..\..\DualityLauncher.exe" 
               Operating System: Microsoft Windows NT 6.2.9200.0 (Windows 8)
-              64 Bit OS: True
-              64 Bit Process: True
+              64 Bit OS: False
+              64 Bit Process: False
               CLR Version: 4.0.30319.42000
-              Processor Count: 8
+              Processor Count: 4
 [Core] Msg: Currently Loaded Assemblies:
               mscorlib 4.0.0.0
               DualityLauncher 2.2.0.0
@@ -81,9 +81,9 @@
                   EnableHighResolution: True
 [Core] Msg: Initializing IAudioBackend...
 [Core] Msg:   OpenAL (OpenTK)...
-[Core] Msg:     OpenAL Drivers not found. Using 64 Bit software fallback.
+[Core] Msg:     OpenAL Drivers not found. Using 32 Bit software fallback.
 [Core] Msg:     Available devices:
-                  Realtek Digital Output (Realtek High Definition Audio) (Default)
+                  Speakers (High Definition Audio Device) (Default)
 [Core] Msg:     Current device: OpenAL Soft
 [Core] Msg:     OpenAL Version: 1.1 ALSOFT 1.15.1
                 Vendor: OpenAL Community
@@ -100,22 +100,22 @@
 [Core] Msg:   GamePlugin.core...
 [Core] Msg:   Tilemaps.Sample.core...
 [Core] Msg: DualityApp initialized
-            Debug Mode: False
-            Command line arguments: editor
+            Debug Mode: True
+            Command line arguments: 
 [Core] Msg: Opening Window...
 [Core] Msg:   Window Specification: 
                 Buffers: 2
-                Samples: 16
+                Samples: 0
                 ColorFormat: 32 (8888)
                 AccumFormat: 64 (16161616)
                 Depth: 24
-                Stencil: 0
-                VSync: On
-                SwapInterval: 1
-[Core] Msg:   OpenGL Version: 4.5.0 NVIDIA 368.81
-              Vendor: NVIDIA Corporation
-              Renderer: GeForce GTX 950/PCIe/SSE2
-              Shader Version: 4.50 NVIDIA
+                Stencil: 8
+                VSync: Off
+                SwapInterval: 0
+[Core] Msg:   OpenGL Version: 2.1.0 - Build 8.15.10.2900
+              Vendor: Intel
+              Renderer: Intel(R) HD Graphics
+              Shader Version: 1.20  - Intel Build 8.15.10.2900
 [Core] Msg: Initializing default content...
 [Core] Msg:   Assembly loaded: System.Runtime.InteropServices 4.0.0.0
 [Core] Msg:   Assembly loaded: System.Collections.Concurrent 4.0.0.0
