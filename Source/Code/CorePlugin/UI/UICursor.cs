@@ -9,7 +9,6 @@ using Duality.Input;
 
 namespace CampGame.UI
 {
-    [RequiredComponent(typeof(Transform))]
     public class UICursor : UIPanel
     {
         public override void OnInit(InitContext context)
@@ -17,12 +16,20 @@ namespace CampGame.UI
             bordersVisible = false;
         }
 
-        public override void Draw(IDrawDevice device)
+        protected override void Draw(IDrawDevice device, Rect drawArea)
         {
             Vector2 mousePos = DualityApp.Mouse.Pos;
-            GameObj.Transform.Pos = device.GetSpaceCoord(mousePos);
+
             
-            base.Draw(device);
+
+            if (Location != mousePos) Location = mousePos;
+
+            base.Draw(device, rect);
+        }
+
+        public override Rect GetScreenRect()
+        {
+            return rect;
         }
     }
 }

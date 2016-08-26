@@ -115,11 +115,50 @@
             Y is the width of the border.
             </summary>
         </member>
+        <member name="P:CampGame.UI.UIPanel.Skin">
+            <summary>
+            [GET / SET] The <see cref="T:CampGame.UI.UISkin"/> containing the background and border materials used to draw this element.
+            </summary>
+        </member>
+        <member name="P:CampGame.UI.UIPanel.BackgroundTint">
+            <summary>
+            [GET / SET] The color used to tint the background image.
+            </summary>
+        </member>
+        <member name="P:CampGame.UI.UIPanel.BorderTint">
+            <summary>
+            [GET / SET] The color used to tint the border image.
+            </summary>
+        </member>
+        <member name="P:CampGame.UI.UIPanel.UseCustomBorderWidths">
+            <summary>
+            </summary>
+        </member>
         <member name="P:CampGame.UI.UIPanel.BorderWidths">
             <summary>
             [GET/SET] Allows us to resize the widget border. X, Y, Z, W correspond to Left, Top, Right, Bottom.
             Values are ignored unless UseCustomBorderWidths is set to true. Otherwise, the border widths defined
             in the UISkin are used.
+            </summary>
+        </member>
+        <member name="P:CampGame.UI.UIWidget.Location">
+            <summary>
+            [GET / SET] The pixel coordinates of the UI element
+            </summary>
+        </member>
+        <member name="P:CampGame.UI.UIWidget.Size">
+            <summary>
+            [GET / SET] The rectangular size of the UI element.
+            </summary>
+        </member>
+        <member name="P:CampGame.UI.UIWidget.ZOffset">
+            <summary>
+            [GET / SET] A virtual Z offset that determines in which order elements are drawn. 
+            </summary>
+        </member>
+        <member name="P:CampGame.UI.UIWidget.Visible">
+            <summary>
+            [GET / SET] Determines if we are to draw this element.
             </summary>
         </member>
     </members>

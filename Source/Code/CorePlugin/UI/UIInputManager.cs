@@ -9,38 +9,18 @@ namespace CampGame.UI
 {
     public class UIInputManager : Component, ICmpInitializable
     {
-        [DontSerialize]
-        protected List<UIPanel> allWidgets;
+        [DontSerialize] protected Stack<UIControl> hoveredWidgets = new Stack<UIControl>();
+        [DontSerialize] protected UIControl clickedWidget;
+        [DontSerialize] protected UIControl focusedWidget;
 
-        [DontSerialize]
-        protected List<UIPanel> hoveredWidgets;
-
-        [DontSerialize]
-        protected UIPanel focusedWidget;
-
-        [DontSerialize]
-        private EventHandler<KeyboardKeyEventArgs> keyboardHandler;
-
-        [DontSerialize]
-        private EventHandler<MouseMoveEventArgs> mouseMoveHandler;
-
-        [DontSerialize]
-        private EventHandler<MouseButtonEventArgs> mouseButtonDownHandler;
-
-        [DontSerialize]
-        private EventHandler<MouseButtonEventArgs> mouseButtonUpHandler;
-
-        [DontSerialize]
-        private EventHandler<MouseWheelEventArgs> mouseWheelHandler;
-        
-        public IList<UIPanel> Widgets { get { return allWidgets; } }
+        [DontSerialize] private EventHandler<KeyboardKeyEventArgs> keyboardHandler;
+        [DontSerialize] private EventHandler<MouseMoveEventArgs> mouseMoveHandler;
+        [DontSerialize] private EventHandler<MouseButtonEventArgs> mouseButtonDownHandler;
+        [DontSerialize] private EventHandler<MouseButtonEventArgs> mouseButtonUpHandler; 
+        [DontSerialize] private EventHandler<MouseWheelEventArgs> mouseWheelHandler;
 
         public UIInputManager()
         {
-            allWidgets = new List<UIPanel>();
-
-            hoveredWidgets = new List<UIPanel>();
-
             keyboardHandler = new EventHandler<KeyboardKeyEventArgs>(KeyboardKeyPress);
             mouseMoveHandler = new EventHandler<MouseMoveEventArgs>(MouseMove);
             mouseButtonDownHandler = new EventHandler<MouseButtonEventArgs>(MouseButtonDown);
@@ -72,69 +52,59 @@ namespace CampGame.UI
             }
         }
 
-        public void AddWidget(UIPanel widget)
-        {
-            if (!allWidgets.Contains(widget))
-            {
-                allWidgets.Add(widget);
-            }
-        }
-
         private void KeyboardKeyPress(object sender, KeyboardKeyEventArgs e)
         {
-            if (focusedWidget != null)
-            {
-                focusedWidget.OnKeyPress(e);
-            }
         }
 
         private void MouseMove(object sender, MouseMoveEventArgs e)
         {
-            if (!Active)
+            if (!Active) return;
+
+            if (clickedWidget != null)
+            {
+                clickedWidget.OnDrag(e);
                 return;
+            }
 
-            Vector2 mousePos = e.Position;
-
-            for (int i = 0; i < hoveredWidgets.Count; i++)
+            while (hoveredWidgets.Count > 0)
             {
-                if (!hoveredWidgets[i].ScreenArea.Contains(mousePos))
+                if (hoveredWidgets.Peek().GetScreenRect().Contains(e.Position))
                 {
-                    hoveredWidgets[i].OnMouseLeave();
-                    hoveredWidgets.RemoveAt(i);
-                    i--;
+                    break;
+                }
+                else
+                {
+                    hoveredWidgets.Pop().OnMouseLeave(e);
                 }
             }
 
-            bool needsSort = false;
-            var mouseIsOver = allWidgets.Where((x) => x.ScreenArea.Contains(mousePos));
-            foreach (var widget in mouseIsOver)
+            foreach (UIControl widget in GameObj.ChildrenDeep.GetComponents<UIControl>()
+                .Where((w) => w.GetScreenRect().Contains(e.Position) && !(w is UICursor))
+                .OrderByDescending((w) => w.ZOffset))
             {
-                if (!hoveredWidgets.Contains(widget))
-                {
-                    widget.OnMouseEnter();
-                    hoveredWidgets.Add(widget);
-                    needsSort = true;
-                }
+                widget.OnMouseEnter(e);
+                hoveredWidgets.Push(widget);
             }
-
-            //if (needsSort)
-            //    hoveredWidgets.Sort(new Comparison<UIWidget>((w1, w2) => w1.Offset.CompareTo(w2.ZOffset)));
         }
 
         private void MouseButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (hoveredWidgets.Count > 0) 
+            if (hoveredWidgets.Count > 0)
             {
-                focusedWidget = hoveredWidgets.First();
-                focusedWidget.OnClick(e);
+                hoveredWidgets.Peek().OnClick(e);
+
+                if (e.Button == MouseButton.Left)
+                {
+                    clickedWidget = hoveredWidgets.Peek();
+                }
             }
         }
 
         private void MouseButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (focusedWidget != null)
+            if (e.Button == MouseButton.Left)
             {
-                focusedWidget.OnRelease(e);
+                clickedWidget = null;
             }
         }
 

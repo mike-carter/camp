@@ -69,11 +69,10 @@
     <Compile Include="CameraControl\RigidCameraController.cs" />
     <Compile Include="CorePlugin.cs" />
     <Compile Include="Resources\Blueprint.cs" />
-    <Compile Include="Resources\UIBorderMaterial.cs" />
+    <Compile Include="UI\UIImagePanel.cs" />
     <Compile Include="UI\UISkin.cs" />
     <Compile Include="StructureObject.cs" />
     <Compile Include="UI\ScrollPanel.cs" />
-    <Compile Include="UI\UIButton.cs" />
     <Compile Include="UI\UICursor.cs" />
     <Compile Include="UI\ToolPanelButton.cs" />
     <Compile Include="UI\UITextPanel.cs" />
@@ -81,6 +80,8 @@
     <Compile Include="UI\UIAlignedPanel.cs" />
     <Compile Include="UI\UIPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\UIControl.cs" />
+    <Compile Include="UI\UIWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>

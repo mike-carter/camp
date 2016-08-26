@@ -13,21 +13,9 @@ using CampGame.Resources;
 namespace CampGame.UI
 {
     [EditorHintImage(CoreResNames.ImageSpriteRenderer)]
-    public class UIPanel : Renderer, ICmpInitializable
+    public class UIPanel : UIControl
     {
         protected const float ZOffsetScale = 0.1f;
-
-        [Flags]
-        public enum DirtyFlags : short
-        {
-            None = 0,
-            Background = 1,
-            Border = 2,
-            Text = 4,
-            Icon = 8,
-
-            All = -1
-        }
 
         public enum BorderAlign : short
         {
@@ -36,83 +24,54 @@ namespace CampGame.UI
             OutsideEdge
         }
 
-        protected Vector2 size = new Vector2(100, 100);
         protected ContentRef<UISkin> skin = UISkin.Default;
-        protected int offset = 0;
-
         protected ColorRgba bgTint = ColorRgba.White;
-        protected ColorRgba borderTint = ColorRgba.White;
-
         protected bool useCustomWidths = false;
         protected Vector4 borderWidths = Vector4.Zero;
         protected BorderAlign borderAlign = BorderAlign.Center;
-        
-        protected bool isVisible = true;
+        protected ColorRgba borderTint = ColorRgba.White;
         protected bool bordersVisible = true;
 
-        [DontSerialize] protected Rect screenArea;
-        [DontSerialize] protected bool hasFocus;
+        
+        
         [DontSerialize] protected bool mouseHovering;
-
         [DontSerialize] protected VertexC1P3T2[] bgVertices;
         [DontSerialize] protected VertexC1P3T2[] borderVertices;
-        
-        [DontSerialize] protected DirtyFlags dirtyFlags;
 
-        public Vector2 Size
-        {
-            get { return size; }
-            set
-            {
-                size = value;
-                dirtyFlags |= DirtyFlags.All;
-            }
-        }
-
+        /// <summary>
+        /// [GET / SET] The <see cref="UISkin"/> containing the background and border materials used to draw this element.
+        /// </summary>
+        [EditorHintDecimalPlaces(0)]
         public ContentRef<UISkin> Skin
         {
             get { return skin; }
-            set
-            {
-                skin = value;
-                dirtyFlags |= DirtyFlags.All;
-            }
+            set { dirtyFlags |= DirtyFlags.Background | DirtyFlags.Border; skin = value; }
         }
 
-        public int ZOffset
-        {
-            get { return offset; }
-            set { offset = value; dirtyFlags |= DirtyFlags.All; }
-        }
-
+        /// <summary>
+        /// [GET / SET] The color used to tint the background image.
+        /// </summary>
         public ColorRgba BackgroundTint
         {
             get { return bgTint; }
-            set
-            {
-                bgTint = value;
-                dirtyFlags |= DirtyFlags.Background;
-            }
+            set { dirtyFlags |= DirtyFlags.Background; bgTint = value; }
         }
 
+        /// <summary>
+        /// [GET / SET] The color used to tint the border image.
+        /// </summary>
         public ColorRgba BorderTint
         {
             get { return borderTint; }
-            set
-            {
-                borderTint = value;
-                dirtyFlags |= DirtyFlags.Border;
-            }
+            set { dirtyFlags |= DirtyFlags.Border; borderTint = value; }
         }
 
+        /// <summary>
+        /// </summary>
         public bool UseCustomBorderWidths
         {
             get { return useCustomWidths; }
-            set
-            {
-                useCustomWidths = value;
-                dirtyFlags |= DirtyFlags.Border;
-            }
+            set { dirtyFlags |= DirtyFlags.Border; useCustomWidths = value; }
         }
 
         /// <summary>
@@ -123,80 +82,59 @@ namespace CampGame.UI
         public Vector4 BorderWidths
         {
             get { return borderWidths; }
-            set
-            {
-                borderWidths = value;
-                dirtyFlags |= DirtyFlags.Border;
-            }
+            set { dirtyFlags |= DirtyFlags.Border; borderWidths = value; }
         }
 
         public BorderAlign BorderAlignment
         {
             get { return borderAlign; }
-            set { borderAlign = value; dirtyFlags |= DirtyFlags.Border; }
-        }
-
-        public bool Visible
-        {
-            get { return isVisible; }
-            set { isVisible = value; }
+            set { dirtyFlags |= DirtyFlags.Border; borderAlign = value; }
         }
 
         public bool BordersVisible
         {
             get { return bordersVisible; }
-            set { bordersVisible = value; }
-        }
-
-        
-
-        [EditorHintFlags(MemberFlags.Invisible)]
-        public Rect ScreenArea { get { return screenArea; } }
-
-        public override float BoundRadius
-        {
-            get { return screenArea.BoundingRadius; }
+            set { dirtyFlags |= DirtyFlags.Border; bordersVisible = value; }
         }
         
-        public virtual void OnInit(InitContext context)
+        public override void OnInit(InitContext context)
         {
-            VisibilityGroup = VisibilityFlag.AllFlags | VisibilityFlag.ScreenOverlay;
-        }
-        
-        public virtual void OnShutdown(ShutdownContext context)
-        {
-        }
-
-        public override bool IsVisible(IDrawDevice device)
-        {
-            return (device.VisibilityMask & VisibilityFlag.ScreenOverlay) != VisibilityFlag.None &&
-                (device.VisibilityMask & VisibilityFlag.AllGroups) != VisibilityFlag.None;
-        }
-
-        public override void Draw(IDrawDevice device)
-        {
-            DetermineScreenArea(device);
-
-            if (isVisible)
+            if (skin.Res?.BackgroundMaterial.Res == null)
             {
-                DrawBackground(device);
+                bordersVisible = false;
+            }
+        }
+        
+        public override void OnShutdown(ShutdownContext context)
+        {
+        }
 
-                if (bordersVisible) DrawBorders(device);
+        protected Vector4 RetrieveBorderWidths()
+        {
+            if (useCustomWidths)
+            {
+                return borderWidths;
+            }
+            else
+            {
+                UISkin skinRes = skin.Res;
+                if (skinRes == null) return Vector4.Zero;
+                return new Vector4(
+                    skinRes.LeftBorder.Y,
+                    skinRes.TopBorder.Y,
+                    skinRes.RightBorder.Y,
+                    skinRes.BottomBorder.Y);
             }
         }
 
-        protected virtual void DetermineScreenArea(IDrawDevice device)
+        protected override void Draw(IDrawDevice device, Rect drawArea)
         {
-            Rect oldScreenArea = screenArea;
+            DrawBackground(device, drawArea);
 
-            screenArea.Pos = device.GetScreenCoord(GameObj.Transform.Pos).Xy;
-            screenArea.Size = size * GameObj.Transform.Scale;
-            
-            if (screenArea != oldScreenArea)
-                dirtyFlags |= DirtyFlags.All;
+            if (bordersVisible) DrawBorders(device, drawArea);
         }
 
-        protected void DrawBackground(IDrawDevice device)
+        protected void DrawBackground(IDrawDevice device, Rect drawArea)
         {
             UISkin skinRes = skin.Res;
             Material bgMat = skinRes?.BackgroundMaterial.Res ?? Material.Checkerboard.Res;
@@ -211,35 +149,33 @@ namespace CampGame.UI
 
                 if (bgVertices == null || bgVertices.Length != 4) bgVertices = new VertexC1P3T2[4];
 
-                float zval = offset * ZOffsetScale;
+                float zval = zOffset * ZOffsetScale;
 
-                bgVertices[0].Pos.Xy = screenArea.TopLeft;
+                bgVertices[0].Pos.Xy = drawArea.TopLeft;
                 bgVertices[0].Pos.Z = zval;
                 bgVertices[0].TexCoord = uvRect.TopLeft;
                 bgVertices[0].Color = mainColor;
 
-                bgVertices[1].Pos.Xy = screenArea.BottomLeft;
+                bgVertices[1].Pos.Xy = drawArea.BottomLeft;
                 bgVertices[1].Pos.Z = zval;
                 bgVertices[1].TexCoord = uvRect.BottomLeft;
                 bgVertices[1].Color = mainColor;
 
-                bgVertices[2].Pos.Xy = screenArea.BottomRight;
+                bgVertices[2].Pos.Xy = drawArea.BottomRight;
                 bgVertices[2].Pos.Z = zval;
                 bgVertices[2].TexCoord = uvRect.BottomRight;
                 bgVertices[2].Color = mainColor;
 
-                bgVertices[3].Pos.Xy = screenArea.TopRight;
+                bgVertices[3].Pos.Xy = drawArea.TopRight;
                 bgVertices[3].Pos.Z = zval;
                 bgVertices[3].TexCoord = uvRect.TopRight;
                 bgVertices[3].Color = mainColor;
-
-                dirtyFlags -= DirtyFlags.Background;
             }
             
             device.AddVertices(bgMat, VertexMode.Quads, bgVertices);
         }
 
-        protected void DrawBorders(IDrawDevice device)
+        protected void DrawBorders(IDrawDevice device, Rect drawArea)
         {
             UISkin skinRes = skin.Res;
             Material borderMat = skinRes?.BorderMaterial.Res ?? Material.Checkerboard.Res;
@@ -264,46 +200,31 @@ namespace CampGame.UI
 			     *****************************/
 
                 ColorRgba mainColor = borderMat.MainColor * borderTint;
-                
-                float leftWidth, topWidth, rightWidth, bottomWidth;
 
-                if (useCustomWidths)
-                {
-                    leftWidth = borderWidths.X;
-                    topWidth = borderWidths.Y;
-                    rightWidth = borderWidths.Z;
-                    bottomWidth = borderWidths.W;
-                }
-                else
-                {
-                    leftWidth = skinRes.LeftBorder.Y;
-                    topWidth = skinRes.TopBorder.Y;
-                    rightWidth = skinRes.RightBorder.Y;
-                    bottomWidth = skinRes.BottomBorder.Y;
-                }
+                Vector4 widths = RetrieveBorderWidths();
 
                 Rect topLeftCorner, topRightCorner, bottomLeftCorner, bottomRightCorner;
 
                 if (borderAlign == BorderAlign.InsideEdge)
                 {
-                    topLeftCorner = Rect.Align(Alignment.BottomRight, screenArea.LeftX, screenArea.TopY, leftWidth, topWidth);
-                    topRightCorner = Rect.Align(Alignment.BottomLeft, screenArea.RightX, screenArea.TopY, rightWidth, topWidth);
-                    bottomLeftCorner = Rect.Align(Alignment.TopRight, screenArea.LeftX, screenArea.BottomY, leftWidth, bottomWidth);
-                    bottomRightCorner = Rect.Align(Alignment.TopLeft, screenArea.RightX, screenArea.BottomY, rightWidth, bottomWidth);
+                    topLeftCorner = Rect.Align(Alignment.BottomRight, drawArea.LeftX, drawArea.TopY, widths.X, widths.Y);
+                    topRightCorner = Rect.Align(Alignment.BottomLeft, drawArea.RightX, drawArea.TopY, widths.Z, widths.Y);
+                    bottomLeftCorner = Rect.Align(Alignment.TopRight, drawArea.LeftX, drawArea.BottomY, widths.X, widths.W);
+                    bottomRightCorner = Rect.Align(Alignment.TopLeft, drawArea.RightX, drawArea.BottomY, widths.Z, widths.W);
                 }
                 else if (borderAlign == BorderAlign.Center)
                 {
-                    topLeftCorner = Rect.Align(Alignment.Center, screenArea.LeftX, screenArea.TopY, leftWidth, topWidth);
-                    topRightCorner = Rect.Align(Alignment.Center, screenArea.RightX, screenArea.TopY, rightWidth, topWidth);
-                    bottomLeftCorner = Rect.Align(Alignment.Center, screenArea.LeftX, screenArea.BottomY, leftWidth, bottomWidth);
-                    bottomRightCorner = Rect.Align(Alignment.Center, screenArea.RightX, screenArea.BottomY, rightWidth, bottomWidth);
+                    topLeftCorner = Rect.Align(Alignment.Center, drawArea.LeftX, drawArea.TopY, widths.X, widths.Y);
+                    topRightCorner = Rect.Align(Alignment.Center, drawArea.RightX, drawArea.TopY, widths.Z, widths.Y);
+                    bottomLeftCorner = Rect.Align(Alignment.Center, drawArea.LeftX, drawArea.BottomY, widths.X, widths.W);
+                    bottomRightCorner = Rect.Align(Alignment.Center, drawArea.RightX, drawArea.BottomY, widths.Z, widths.W);
                 }
                 else // outside edge
                 {
-                    topLeftCorner = Rect.Align(Alignment.TopLeft, screenArea.LeftX, screenArea.TopY, leftWidth, topWidth);
-                    topRightCorner = Rect.Align(Alignment.TopRight, screenArea.RightX, screenArea.TopY, rightWidth, topWidth);
-                    bottomLeftCorner = Rect.Align(Alignment.BottomLeft, screenArea.LeftX, screenArea.BottomY, leftWidth, bottomWidth);
-                    bottomRightCorner = Rect.Align(Alignment.BottomRight, screenArea.RightX, screenArea.BottomY, rightWidth, bottomWidth);
+                    topLeftCorner = Rect.Align(Alignment.TopLeft, drawArea.LeftX, drawArea.TopY, widths.X, widths.Y);
+                    topRightCorner = Rect.Align(Alignment.TopRight, drawArea.RightX, drawArea.TopY, widths.Z, widths.Y);
+                    bottomLeftCorner = Rect.Align(Alignment.BottomLeft, drawArea.LeftX, drawArea.BottomY, widths.X, widths.W);
+                    bottomRightCorner = Rect.Align(Alignment.BottomRight, drawArea.RightX, drawArea.BottomY, widths.Z, widths.W);
                 }
 
                 if (borderVertices == null || borderVertices.Length != 32) borderVertices = new VertexC1P3T2[32];
@@ -323,8 +244,6 @@ namespace CampGame.UI
                 PrepareBorderVertices(24, mainColor, bottomLeftCorner.TopRight, bottomRightCorner.BottomLeft, skinRes.GetBorderUV(BorderSections.Bottom));
                 
                 PrepareBorderVertices(28, mainColor, bottomRightCorner.TopLeft, bottomRightCorner.BottomRight, skinRes.GetBorderUV(BorderSections.BottomRight));
-
-                dirtyFlags -= DirtyFlags.Border;
             }
 
             device.AddVertices(borderMat, VertexMode.Quads, borderVertices);
@@ -332,7 +251,7 @@ namespace CampGame.UI
 
         protected void PrepareBorderVertices(int sectionStart, ColorRgba mainColor, Vector2 topLeft, Vector2 bottomRight, Rect uvRect)
         {
-            float zval = offset * ZOffsetScale;
+            float zval = zOffset * ZOffsetScale;
 
             borderVertices[sectionStart].Pos.Xy = topLeft;
             borderVertices[sectionStart].Pos.Z = zval;
@@ -356,19 +275,10 @@ namespace CampGame.UI
             borderVertices[sectionStart + 3].TexCoord = uvRect.TopRight;
             borderVertices[sectionStart + 3].Color = mainColor;
         }
+
         // Events
 
-        public virtual void OnKeyPress(KeyboardKeyEventArgs e) { }
-
-        public virtual void OnMouseEnter() { }
-
-        public virtual void OnMouseLeave() { }
-
-        public virtual void OnClick(MouseButtonEventArgs e) { }
-
-        public virtual void OnRelease(MouseButtonEventArgs e) { }
-
-        public virtual void OnMouseWheelMove(MouseWheelEventArgs e) { }
+        
         
     }
 }

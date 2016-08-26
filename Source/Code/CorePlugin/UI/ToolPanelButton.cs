@@ -10,29 +10,34 @@ using Duality.Resources;
 
 namespace CampGame.UI
 {
-    public class ToolPanelButton : UIPanel
+    public class ToolPanelButton : UIImagePanel
     {
-        public enum Button
+        GameObject Action;
+
+        public override void OnInit(InitContext context)
         {
-            None,
-            Build
+            base.OnInit(context);
+
+            if (context == InitContext.Activate)
+            {
+                bordersVisible = false;
+            }
         }
 
-        public Button ButtonID { get; set; }
 
-        public override void OnMouseEnter()
+        public override void OnMouseEnter(MouseMoveEventArgs e)
         {
-            //temp = BaseMaterial;
-            //BaseMaterial = Material.DualityIcon;
+            BordersVisible = true;
         }
 
-        public override void OnMouseLeave()
+        public override void OnMouseLeave(MouseMoveEventArgs e)
         {
-
+            BordersVisible = false;
         }
 
         public override void OnClick(MouseButtonEventArgs e)
         {
+
         }
     }
 }

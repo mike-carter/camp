@@ -10,72 +10,72 @@ using Duality.Drawing;
 
 namespace CampGame.UI
 {
-    [RequiredComponent(typeof(Transform))]
     public class UIAlignedPanel : UIPanel
     {
-        [DontSerialize]
-        protected bool MouseEntered = true;
+        protected Alignment screenAlignment;
+        protected Vector2 alignOffset;
 
-        public Alignment ScreenAlignment { get; set; } = Alignment.TopLeft;
-
-        public Vector2 Offset { get; set; } = Vector2.Zero;
-
-        public override void Draw(IDrawDevice device)
+        public Alignment ScreenAlignment
         {
-            Vector2 screenSize = device.TargetSize;
+            get { return screenAlignment; }
+            set { dirtyFlags |= DirtyFlags.All; screenAlignment = value; }
+        }
 
-            Vector2 panelSize = screenArea.Size;
-            Vector2 panelPos = Vector2.Zero;
+        public Vector2 AlignmentOffset
+        {
+            get { return alignOffset; }
+            set { dirtyFlags |= DirtyFlags.All; alignOffset = value; }
+        }
 
-            switch (ScreenAlignment)
+        protected override void Draw(IDrawDevice device, Rect drawArea)
+        {
+            if ((dirtyFlags & DirtyFlags.Layout) != DirtyFlags.None)
             {
-                case Alignment.Center:
-                    panelPos.X = (screenSize.X / 2) - (panelSize.X / 2);
-                    panelPos.Y = (screenSize.Y / 2) - (panelSize.Y / 2);
-                    break;
-                case Alignment.Left:
-                    panelPos.Y = (screenSize.Y / 2) - (panelSize.Y / 2);
-                    break;
-                case Alignment.Right:
-                    panelPos.X = screenSize.X - panelSize.X;
-                    panelPos.Y = (screenSize.Y / 2) - (panelSize.Y / 2);
-                    break;
-                case Alignment.Top:
-                    panelPos.X = (screenSize.X / 2) - (panelSize.X / 2);
-                    break;
-                case Alignment.TopLeft:
-                    break;
-                case Alignment.TopRight:
-                    panelPos.X = screenSize.X - panelSize.X;
-                    break;
-                case Alignment.Bottom:
-                    panelPos.X = (screenSize.X / 2) - (panelSize.X / 2);
-                    panelPos.Y = screenSize.Y - panelSize.Y;
-                    break;
-                case Alignment.BottomLeft:
-                    panelPos.Y = screenSize.Y - panelSize.Y;
-                    break;
-                case Alignment.BottomRight:
-                    panelPos.X = screenSize.X - panelSize.X;
-                    panelPos.Y = screenSize.Y - panelSize.Y;
-                    break;
+                Vector2 parentSize = (parentContainer == null) ? device.TargetSize : parentContainer.Size;
+
+                Vector2 panelSize = drawArea.Size;
+                Vector2 panelPos = Vector2.Zero;
+
+                switch (ScreenAlignment)
+                {
+                    case Alignment.Center:
+                        panelPos.X = (parentSize.X / 2) - (panelSize.X / 2);
+                        panelPos.Y = (parentSize.Y / 2) - (panelSize.Y / 2);
+                        break;
+                    case Alignment.Left:
+                        panelPos.Y = (parentSize.Y / 2) - (panelSize.Y / 2);
+                        break;
+                    case Alignment.Right:
+                        panelPos.X = parentSize.X - panelSize.X;
+                        panelPos.Y = (parentSize.Y / 2) - (panelSize.Y / 2);
+                        break;
+                    case Alignment.Top:
+                        panelPos.X = (parentSize.X / 2) - (panelSize.X / 2);
+                        break;
+                    case Alignment.TopLeft:
+                        break;
+                    case Alignment.TopRight:
+                        panelPos.X = parentSize.X - panelSize.X;
+                        break;
+                    case Alignment.Bottom:
+                        panelPos.X = (parentSize.X / 2) - (panelSize.X / 2);
+                        panelPos.Y = parentSize.Y - panelSize.Y;
+                        break;
+                    case Alignment.BottomLeft:
+                        panelPos.Y = parentSize.Y - panelSize.Y;
+                        break;
+                    case Alignment.BottomRight:
+                        panelPos.X = parentSize.X - panelSize.X;
+                        panelPos.Y = parentSize.Y - panelSize.Y;
+                        break;
+                }
+                panelPos += AlignmentOffset;
+
+                Location = panelPos;
+                drawArea = GetScreenRect();
             }
 
-            panelPos += Offset;
-
-            GameObj.Transform.MoveToAbs(device.GetSpaceCoord(panelPos));
-
-            base.Draw(device);
-        }
-
-        public override void OnMouseEnter()
-        {
-            MouseEntered = true;
-        }
-
-        public override void OnMouseLeave()
-        {
-            MouseEntered = false;
+            base.Draw(device, drawArea);
         }
     }
 }

@@ -9,12 +9,10 @@ using Duality.Resources;
 
 namespace CampGame.UI
 {
-    public class ScrollPanel : UIAlignedPanel
+    public class ScrollPanel : UIPanel
     {
-        public ContentRef<Material> ButtonMaterial { get; set; } = null;
-
-
-
+        [DontSerialize] UIAlignedPanel scrollBar;
+        
         
         public override void OnInit(InitContext context)
         {

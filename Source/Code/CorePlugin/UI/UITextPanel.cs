@@ -42,14 +42,8 @@ namespace CampGame.UI
             set { textVisible = value; }
         }
 
-        public override void Draw(IDrawDevice device)
+        protected override void Draw(IDrawDevice device, Rect drawArea)
         {
-            base.Draw(device);
-
-            if (isVisible && textVisible)
-            {
-
-            }
         }
 
         protected void DrawText(IDrawDevice device)
